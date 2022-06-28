@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MyProjectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TODOLISTTABLE">
+          <Key>
+            <PropertyRef Name="ToDoListId" />
+          </Key>
+          <Property Name="ToDoListId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="date" />
+          <Property Name="Title" Type="varchar" MaxLength="50" />
+          <Property Name="Task" Type="varchar" MaxLength="50" />
+          <Property Name="PriorityId" Type="int" />
+        </EntityType>
+        <EntityType Name="TODOLISTTYPE">
+          <Key>
+            <PropertyRef Name="PriorityId" />
+          </Key>
+          <Property Name="PriorityId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Priority" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="UserTable">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="DOB" Type="date" />
+          <Property Name="Gender" Type="varchar" MaxLength="50" />
+          <Property Name="Education" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="ConfirmPassword" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK__TODOLISTT__Prior__2F10007B">
+          <End Role="TODOLISTTYPE" Type="Self.TODOLISTTYPE" Multiplicity="0..1" />
+          <End Role="TODOLISTTABLE" Type="Self.TODOLISTTABLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TODOLISTTYPE">
+              <PropertyRef Name="PriorityId" />
+            </Principal>
+            <Dependent Role="TODOLISTTABLE">
+              <PropertyRef Name="PriorityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MyProjectModelStoreContainer">
+          <EntitySet Name="TODOLISTTABLE" EntityType="Self.TODOLISTTABLE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TODOLISTTYPE" EntityType="Self.TODOLISTTYPE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserTable" EntityType="Self.UserTable" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__TODOLISTT__Prior__2F10007B" Association="Self.FK__TODOLISTT__Prior__2F10007B">
+            <End Role="TODOLISTTYPE" EntitySet="TODOLISTTYPE" />
+            <End Role="TODOLISTTABLE" EntitySet="TODOLISTTABLE" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MyProjectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TODOLISTTABLE">
+          <Key>
+            <PropertyRef Name="ToDoListId" />
+          </Key>
+          <Property Name="ToDoListId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Task" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PriorityId" Type="Int32" />
+          <NavigationProperty Name="TODOLISTTYPE" Relationship="Self.FK__TODOLISTT__Prior__2F10007B" FromRole="TODOLISTTABLE" ToRole="TODOLISTTYPE" />
+        </EntityType>
+        <EntityType Name="TODOLISTTYPE">
+          <Key>
+            <PropertyRef Name="PriorityId" />
+          </Key>
+          <Property Name="PriorityId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Priority" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TODOLISTTABLEs" Relationship="Self.FK__TODOLISTT__Prior__2F10007B" FromRole="TODOLISTTYPE" ToRole="TODOLISTTABLE" />
+        </EntityType>
+        <EntityType Name="UserTable">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DOB" Type="DateTime" Precision="0" />
+          <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Education" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ConfirmPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK__TODOLISTT__Prior__2F10007B">
+          <End Role="TODOLISTTYPE" Type="Self.TODOLISTTYPE" Multiplicity="0..1" />
+          <End Role="TODOLISTTABLE" Type="Self.TODOLISTTABLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TODOLISTTYPE">
+              <PropertyRef Name="PriorityId" />
+            </Principal>
+            <Dependent Role="TODOLISTTABLE">
+              <PropertyRef Name="PriorityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MyProjectEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TODOLISTTABLEs" EntityType="Self.TODOLISTTABLE" />
+          <EntitySet Name="TODOLISTTYPEs" EntityType="Self.TODOLISTTYPE" />
+          <EntitySet Name="UserTables" EntityType="Self.UserTable" />
+          <AssociationSet Name="FK__TODOLISTT__Prior__2F10007B" Association="Self.FK__TODOLISTT__Prior__2F10007B">
+            <End Role="TODOLISTTYPE" EntitySet="TODOLISTTYPEs" />
+            <End Role="TODOLISTTABLE" EntitySet="TODOLISTTABLEs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MyProjectModelStoreContainer" CdmEntityContainer="MyProjectEntities">
+          <EntitySetMapping Name="TODOLISTTABLEs">
+            <EntityTypeMapping TypeName="MyProjectModel.TODOLISTTABLE">
+              <MappingFragment StoreEntitySet="TODOLISTTABLE">
+                <ScalarProperty Name="ToDoListId" ColumnName="ToDoListId" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Task" ColumnName="Task" />
+                <ScalarProperty Name="PriorityId" ColumnName="PriorityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TODOLISTTYPEs">
+            <EntityTypeMapping TypeName="MyProjectModel.TODOLISTTYPE">
+              <MappingFragment StoreEntitySet="TODOLISTTYPE">
+                <ScalarProperty Name="PriorityId" ColumnName="PriorityId" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserTables">
+            <EntityTypeMapping TypeName="MyProjectModel.UserTable">
+              <MappingFragment StoreEntitySet="UserTable">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Education" ColumnName="Education" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="ConfirmPassword" ColumnName="ConfirmPassword" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

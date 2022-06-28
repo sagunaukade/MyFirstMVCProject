@@ -1,0 +1,94 @@
+﻿@model IEnumerable<MyVarsenoTask.TODOLISTTABLE>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Task List</h2>
+
+<!--<p>
+    @Html.ActionLink("Add Task", "Create")-->
+@*    <input type="button" class="btn btn-info" value="Add Task" onclick="location.href='@Url.Action("Add Task", "Create")'" />
+*@<!--</p>-->
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Task)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TODOLISTTYPE.Priority)
+        </th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Task)
+            </td>
+            @* <td>
+                    @Html.DisplayFor(modelItem => item.TODOLISTTYPE.Priority)
+                </td>*@
+            @if (item.TODOLISTTYPE.Priority == "High Priority")
+            {
+                <td>
+                    <span class="btn btn-danger btn-xs">@item.TODOLISTTYPE.Priority</span>
+                </td>
+            }
+            @if (item.TODOLISTTYPE.Priority == "Medium Priority")
+            {
+                <td>
+                    <span class="btn btn-warning btn-xs">@item.TODOLISTTYPE.Priority</span>
+                </td>
+            }
+            @if (item.TODOLISTTYPE.Priority == "Low Priority")
+            {
+                <td>
+                    <span class="btn btn-success btn-xs">@item.TODOLISTTYPE.Priority</span>
+                </td>
+            }
+            <td>
+                @*  @Html.ActionLink("Edit", "Edit", new { id = item.ToDoListId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ToDoListId }) |*@
+                @*<span class="glyphicon glyphicon-trash" aria-hidden="true"> @Html.ActionLink("Delete", "Delete", new { id = item.ToDoListId })</span>*@
+
+                @*@Html.ActionLink("Delete", "Delete", new { id = item.ToDoListId })*@
+                <a href="@Url.Action("Delete", "TODOList",new { id = item.ToDoListId })">
+                    <span class="glyphicon glyphicon-trash text-danger" aria-hidden="true"></span>
+                </a>
+            </td>
+            @* <td>
+                    @Html.ActionLink("Edit", "Edit", new { id=item.ToDoListId }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.ToDoListId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.ToDoListId })
+                </td>*@
+        </tr>
+
+    }
+<tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>
+        <a href="@Url.Action("Create", "TODOLIST")">
+            <span class="btn btn-primary btn-sm">ADD TASK</span>
+        </a>
+    </td>
+</tr>
+
+</table>
